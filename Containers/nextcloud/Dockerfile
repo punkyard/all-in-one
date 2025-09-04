@@ -8,13 +8,13 @@ ENV SOURCE_LOCATION=/usr/src/nextcloud
 ENV REDIS_DB_INDEX=0
 
 # AIO settings start # Do not remove or change this line!
-ENV NEXTCLOUD_VERSION=30.0.5
+ENV NEXTCLOUD_VERSION=30.0.14
 ENV AIO_TOKEN=123456
 ENV AIO_URL=localhost
 # AIO settings end # Do not remove or change this line!
 
 # Define the commit hash for imagick as a variable
-ARG IMAGICK_COMMIT_HASH=28f27044e435a2b203e32675e942eb8de620ee58
+ARG IMAGICK_COMMIT_HASH=45adfb7b1e322eaa6174e88f7d5e27ef20e0596e
 
 COPY --chmod=775 *.sh /
 COPY --chmod=774 upgrade.exclude /upgrade.exclude
@@ -82,10 +82,10 @@ RUN set -ex; \
     \
 # pecl will claim success even if one install fails, so we need to perform each install separately
     pecl install -o igbinary-3.2.16; \
-    pecl install APCu-5.1.24; \
+    pecl install APCu-5.1.27; \
     pecl install -D 'enable-memcached-igbinary="yes"' memcached-3.3.0; \
-    pecl install -oD 'enable-redis-igbinary="yes" enable-redis-zstd="yes" enable-redis-lz4="yes"' redis-6.1.0; \
-#    pecl install -o imagick-3.7.0; \
+    pecl install -oD 'enable-redis-igbinary="yes" enable-redis-zstd="yes" enable-redis-lz4="yes"' redis-6.2.0; \
+#    pecl install -o imagick-3.8.0; \
 # Begin workaround ->
 # The master version on the imagick repository is compatible with PHP 8.3. However, the PECL version is not updated yet.
 # As soon as it will get updated, we can switch back to the PECL version, instead of having this workaround.
